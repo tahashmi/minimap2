@@ -93,6 +93,9 @@ void mm_split_rm_tmp(const char *prefix, int n_splits);
 void mm_err_puts(const char *str);
 void mm_err_fwrite(const void *p, size_t size, size_t nitems, FILE *fp);
 void mm_err_fread(void *p, size_t size, size_t nitems, FILE *fp);
+	
+void mm_arrow_start(void);
+void mm_arrow_finish(void);
 
 #ifdef __cplusplus
 }
