@@ -438,10 +438,24 @@ void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, int seg_idx,
 	if (r == 0) {
 		if (r_prev) {
 			this_rid = r_prev->rid, this_pos = r_prev->rs;
+			//Tnvyr
+                        t->refID = malloc(strlen(mi->seq[this_rid].name)+1);
+		        strcpy(t->refID, mi->seq[this_rid].name);
+                        t->beginPos = this_pos + 1;                 
+			
 			mm_sprintf_lite(s, "\t%s\t%d\t0\t*", mi->seq[this_rid].name, this_pos+1);
-		} else mm_sprintf_lite(s, "\t*\t0\t0\t*");
+		} else {mm_sprintf_lite(s, "\t*\t0\t0\t*");
+			//Tnvyr
+                        t->refID=malloc(2);
+                        t->refID[0] = '*';t->refID[1] = '\0';
+	                t->beginPos = 0;}
 	} else {
 		this_rid = r->rid, this_pos = r->rs, this_rev = r->rev;
+		//Tnvyr
+                t->refID = malloc(strlen(mi->seq[r->rid].name)+1);
+		strcpy(t->refID, mi->seq[r->rid].name);
+                t->beginPos = r->rs + 1;  
+		
 		mm_sprintf_lite(s, "\t%s\t%d\t%d\t", mi->seq[r->rid].name, r->rs+1, r->mapq);
 		if ((opt_flag & MM_F_LONG_CIGAR) && r->p && r->p->n_cigar > max_bam_cigar_op - 2) {
 			int n_cigar = r->p->n_cigar;
