@@ -517,10 +517,10 @@ void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, int seg_idx,
 			else mm_sprintf_lite(s, "*");
 		}
 	}
-
+        mm_sprintf_lite(s, "\t*");
 	// write tags
-	if (mm_rg_id[0]) mm_sprintf_lite(s, "\tRG:Z:%s", mm_rg_id);
-	if (n_seg > 2) mm_sprintf_lite(s, "\tFI:i:%d", seg_idx);
+	if (mm_rg_id[0]) mm_sprintf_lite(s, "\'RG:Z:%s", mm_rg_id);
+	if (n_seg > 2) mm_sprintf_lite(s, "\'FI:i:%d", seg_idx);
 	if (r) {
 		write_tags(s, r);
 		if (r->parent == r->id && r->p && n_regs > 1 && regs && r >= regs && r - regs < n_regs) { // supplementary aln may exist
@@ -529,7 +529,7 @@ void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, int seg_idx,
 				if (i != r - regs && regs[i].parent == regs[i].id && regs[i].p)
 					++n_sa;
 			if (n_sa > 0) {
-				mm_sprintf_lite(s, "\tSA:Z:");
+				mm_sprintf_lite(s, "\'SA:Z:");
 				for (i = 0; i < n_regs; ++i) {
 					const mm_reg1_t *q = &regs[i];
 					int l_M, l_I = 0, l_D = 0, clip5 = 0, clip3 = 0;
@@ -553,7 +553,7 @@ void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, int seg_idx,
 		if (cigar_in_tag)
 			write_sam_cigar(s, flag, 1, t->l_seq, r, opt_flag);
 	}
-	if (rep_len >= 0) mm_sprintf_lite(s, "\trl:i:%d", rep_len);
+	if (rep_len >= 0) mm_sprintf_lite(s, "\'rl:i:%d", rep_len);
 
 	if ((opt_flag & MM_F_COPY_COMMENT) && t->comment)
 		mm_sprintf_lite(s, "\t%s", t->comment);
