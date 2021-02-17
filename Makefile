@@ -1,10 +1,10 @@
 CFLAGS=		-g -Wall -O2 -Wc++-compat #-Wextra
 CPPFLAGS=	-DHAVE_KALLOC
-INCLUDES=
+INCLUDES=	-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 OBJS=		kthread.o kalloc.o misc.o bseq.o sketch.o sdust.o options.o index.o chain.o align.o hit.o map.o format.o pe.o esterr.o splitidx.o ksw2_ll_sse.o
 PROG=		minimap2
 PROG_EXTRA=	sdust minimap2-lite
-LIBS=		-lm -lz -lpthread
+LIBS=		-lm -lz -lpthread -larrow-glib -lplasma-glib -lglib-2.0 -lgobject-2.0 -lgio-2.0
 
 ifeq ($(arm_neon),) # if arm_neon is not defined
 ifeq ($(sse2only),) # if sse2only is not defined
