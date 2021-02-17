@@ -115,7 +115,7 @@ err_set_rg:
 	return -1;
 }
 
-int mm_write_sam_hdr(const mm_idx_t *idx, const char *rg, const char *ver, int argc, char *argv[])
+int mm_write_sam_hdr(const mm_idx_t *idx, const char *rg, char *ver, int argc, char *argv[])
 {
 	kstring_t str = {0,0,0};
 	int ret = 0;
