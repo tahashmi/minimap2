@@ -2,6 +2,17 @@
 #include <string.h>
 #include <assert.h>
 #include <errno.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include <arrow-glib/arrow-glib.h>
+#include <plasma-glib/plasma-glib.h>
+
+#include <stdint-gcc.h>
+#include <gmodule.h>
+
 #include "kthread.h"
 #include "kvec.h"
 #include "kalloc.h"
@@ -9,6 +20,2156 @@
 #include "mmpriv.h"
 #include "bseq.h"
 #include "khash.h"
+
+
+#define ASCII_START 32
+#define ASCII_END 126
+
+typedef char   gchar;
+
+int64_t counts1,counts1_1,counts1_2,counts1_3,counts1_4,
+        counts2,counts2_1,counts2_2,counts2_3,counts2_4,
+        counts3,counts3_1,counts3_2,counts3_3,
+	counts4,counts4_1,counts4_2,counts4_3,
+	counts5,counts5_1,counts5_2,counts5_3,
+	counts6,counts6_1,counts6_2,counts6_3,
+	counts7,counts7_1,counts7_2,
+	counts8,counts8_1,counts8_2,
+	counts9,counts9_1,counts9_2,
+	counts10,counts10_1,counts10_2,
+	counts11,counts11_1,counts11_2,
+	counts12,counts12_1,counts12_2,
+	counts13,counts13_1,
+	counts14,counts14_1,
+	counts15,counts15_1,
+	counts16,counts16_1,
+	counts17,counts17_1,
+	counts18,counts18_1,
+
+	counts19,counts20,counts21,counts22,
+	countsX,countsX_1,countsX_2,
+	countsY,countsM;
+
+//////////////////////////////////////////////////
+GArrowArray *array_beginPos1;
+GArrowArray *array_sam1;
+
+GArrowInt32ArrayBuilder *builder_beginPos1;
+GArrowStringArrayBuilder *builder_sam1;
+
+GArrowArray *array_beginPos1_1;
+GArrowArray *array_sam1_1;
+GArrowInt32ArrayBuilder *builder_beginPos1_1;
+GArrowStringArrayBuilder *builder_sam1_1;
+
+GArrowArray *array_beginPos1_2;
+GArrowArray *array_sam1_2;
+GArrowInt32ArrayBuilder *builder_beginPos1_2;
+GArrowStringArrayBuilder *builder_sam1_2;
+
+GArrowArray *array_beginPos1_3;
+GArrowArray *array_sam1_3;
+GArrowInt32ArrayBuilder *builder_beginPos1_3;
+GArrowStringArrayBuilder *builder_sam1_3;
+
+GArrowArray *array_beginPos1_4;
+GArrowArray *array_sam1_4;
+GArrowInt32ArrayBuilder *builder_beginPos1_4;
+GArrowStringArrayBuilder *builder_sam1_4;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos2;
+GArrowArray *array_sam2;
+GArrowInt32ArrayBuilder *builder_beginPos2;
+GArrowStringArrayBuilder *builder_sam2;
+
+GArrowArray *array_beginPos2_1;
+GArrowArray *array_sam2_1;
+GArrowInt32ArrayBuilder *builder_beginPos2_1;
+GArrowStringArrayBuilder *builder_sam2_1;
+
+GArrowArray *array_beginPos2_2;
+GArrowArray *array_sam2_2;
+GArrowInt32ArrayBuilder *builder_beginPos2_2;
+GArrowStringArrayBuilder *builder_sam2_2;
+
+GArrowArray *array_beginPos2_3;
+GArrowArray *array_sam2_3;
+GArrowInt32ArrayBuilder *builder_beginPos2_3;
+GArrowStringArrayBuilder *builder_sam2_3;
+
+GArrowArray *array_beginPos2_4;
+GArrowArray *array_sam2_4;
+GArrowInt32ArrayBuilder *builder_beginPos2_4;
+GArrowStringArrayBuilder *builder_sam2_4;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos3;
+GArrowArray *array_sam3;
+GArrowInt32ArrayBuilder *builder_beginPos3;
+GArrowStringArrayBuilder *builder_sam3;
+
+GArrowArray *array_beginPos3_1;
+GArrowArray *array_sam3_1;
+GArrowInt32ArrayBuilder *builder_beginPos3_1;
+GArrowStringArrayBuilder *builder_sam3_1;
+
+GArrowArray *array_beginPos3_2;
+GArrowArray *array_sam3_2;
+GArrowInt32ArrayBuilder *builder_beginPos3_2;
+GArrowStringArrayBuilder *builder_sam3_2;
+
+GArrowArray *array_beginPos3_3;
+GArrowArray *array_sam3_3;
+GArrowInt32ArrayBuilder *builder_beginPos3_3;
+GArrowStringArrayBuilder *builder_sam3_3;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos4;
+GArrowArray *array_sam4;
+GArrowInt32ArrayBuilder *builder_beginPos4;
+GArrowStringArrayBuilder *builder_sam4;
+
+GArrowArray *array_beginPos4_1;
+GArrowArray *array_sam4_1;
+GArrowInt32ArrayBuilder *builder_beginPos4_1;
+GArrowStringArrayBuilder *builder_sam4_1;
+
+GArrowArray *array_beginPos4_2;
+GArrowArray *array_sam4_2;
+GArrowInt32ArrayBuilder *builder_beginPos4_2;
+GArrowStringArrayBuilder *builder_sam4_2;
+
+GArrowArray *array_beginPos4_3;
+GArrowArray *array_sam4_3;
+GArrowInt32ArrayBuilder *builder_beginPos4_3;
+GArrowStringArrayBuilder *builder_sam4_3;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos5;
+GArrowArray *array_sam5;
+GArrowInt32ArrayBuilder *builder_beginPos5;
+GArrowStringArrayBuilder *builder_sam5;
+
+GArrowArray *array_beginPos5_1;
+GArrowArray *array_sam5_1;
+GArrowInt32ArrayBuilder *builder_beginPos5_1;
+GArrowStringArrayBuilder *builder_sam5_1;
+
+GArrowArray *array_beginPos5_2;
+GArrowArray *array_sam5_2;
+GArrowInt32ArrayBuilder *builder_beginPos5_2;
+GArrowStringArrayBuilder *builder_sam5_2;
+
+GArrowArray *array_beginPos5_3;
+GArrowArray *array_sam5_3;
+GArrowInt32ArrayBuilder *builder_beginPos5_3;
+GArrowStringArrayBuilder *builder_sam5_3;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos6;
+GArrowArray *array_sam6;
+GArrowInt32ArrayBuilder *builder_beginPos6;
+GArrowStringArrayBuilder *builder_sam6;
+
+GArrowArray *array_beginPos6_1;
+GArrowArray *array_sam6_1;
+GArrowInt32ArrayBuilder *builder_beginPos6_1;
+GArrowStringArrayBuilder *builder_sam6_1;
+
+GArrowArray *array_beginPos6_2;
+GArrowArray *array_sam6_2;
+GArrowInt32ArrayBuilder *builder_beginPos6_2;
+GArrowStringArrayBuilder *builder_sam6_2;
+
+GArrowArray *array_beginPos6_3;
+GArrowArray *array_sam6_3;
+GArrowInt32ArrayBuilder *builder_beginPos6_3;
+GArrowStringArrayBuilder *builder_sam6_3;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos7;
+GArrowArray *array_sam7;
+GArrowInt32ArrayBuilder *builder_beginPos7;
+GArrowStringArrayBuilder *builder_sam7;
+
+GArrowArray *array_beginPos7_1;
+GArrowArray *array_sam7_1;
+GArrowInt32ArrayBuilder *builder_beginPos7_1;
+GArrowStringArrayBuilder *builder_sam7_1;
+
+GArrowArray *array_beginPos7_2;
+GArrowArray *array_sam7_2;
+GArrowInt32ArrayBuilder *builder_beginPos7_2;
+GArrowStringArrayBuilder *builder_sam7_2;
+
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos8;
+GArrowArray *array_sam8;
+GArrowInt32ArrayBuilder *builder_beginPos8;
+GArrowStringArrayBuilder *builder_sam8;
+
+GArrowArray *array_beginPos8_1;
+GArrowArray *array_sam8_1;
+GArrowInt32ArrayBuilder *builder_beginPos8_1;
+GArrowStringArrayBuilder *builder_sam8_1;
+
+GArrowArray *array_beginPos8_2;
+GArrowArray *array_sam8_2;
+GArrowInt32ArrayBuilder *builder_beginPos8_2;
+GArrowStringArrayBuilder *builder_sam8_2;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos9;
+GArrowArray *array_sam9;
+GArrowInt32ArrayBuilder *builder_beginPos9;
+GArrowStringArrayBuilder *builder_sam9;
+
+GArrowArray *array_beginPos9_1;
+GArrowArray *array_sam9_1;
+GArrowInt32ArrayBuilder *builder_beginPos9_1;
+GArrowStringArrayBuilder *builder_sam9_1;
+
+GArrowArray *array_beginPos9_2;
+GArrowArray *array_sam9_2;
+GArrowInt32ArrayBuilder *builder_beginPos9_2;
+GArrowStringArrayBuilder *builder_sam9_2;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos10;
+GArrowArray *array_sam10;
+GArrowInt32ArrayBuilder *builder_beginPos10;
+GArrowStringArrayBuilder *builder_sam10;
+
+GArrowArray *array_beginPos10_1;
+GArrowArray *array_sam10_1;
+GArrowInt32ArrayBuilder *builder_beginPos10_1;
+GArrowStringArrayBuilder *builder_sam10_1;
+
+GArrowArray *array_beginPos10_2;
+GArrowArray *array_sam10_2;
+GArrowInt32ArrayBuilder *builder_beginPos10_2;
+GArrowStringArrayBuilder *builder_sam10_2;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos11;
+GArrowArray *array_sam11;
+GArrowInt32ArrayBuilder *builder_beginPos11;
+GArrowStringArrayBuilder *builder_sam11;
+
+GArrowArray *array_beginPos11_1;
+GArrowArray *array_sam11_1;
+GArrowInt32ArrayBuilder *builder_beginPos11_1;
+GArrowStringArrayBuilder *builder_sam11_1;
+
+GArrowArray *array_beginPos11_2;
+GArrowArray *array_sam11_2;
+GArrowInt32ArrayBuilder *builder_beginPos11_2;
+GArrowStringArrayBuilder *builder_sam11_2;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos12;
+GArrowArray *array_sam12;
+GArrowInt32ArrayBuilder *builder_beginPos12;
+GArrowStringArrayBuilder *builder_sam12;
+
+GArrowArray *array_beginPos12_1;
+GArrowArray *array_sam12_1;
+GArrowInt32ArrayBuilder *builder_beginPos12_1;
+GArrowStringArrayBuilder *builder_sam12_1;
+
+GArrowArray *array_beginPos12_2;
+GArrowArray *array_sam12_2;
+GArrowInt32ArrayBuilder *builder_beginPos12_2;
+GArrowStringArrayBuilder *builder_sam12_2;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos13;
+GArrowArray *array_sam13;
+GArrowInt32ArrayBuilder *builder_beginPos13;
+GArrowStringArrayBuilder *builder_sam13;
+
+GArrowArray *array_beginPos13_1;
+GArrowArray *array_sam13_1;
+GArrowInt32ArrayBuilder *builder_beginPos13_1;
+GArrowStringArrayBuilder *builder_sam13_1;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos14;
+GArrowArray *array_sam14;
+GArrowInt32ArrayBuilder *builder_beginPos14;
+GArrowStringArrayBuilder *builder_sam14;
+
+GArrowArray *array_beginPos14_1;
+GArrowArray *array_sam14_1;
+GArrowInt32ArrayBuilder *builder_beginPos14_1;
+GArrowStringArrayBuilder *builder_sam14_1;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos15;
+GArrowArray *array_sam15;
+GArrowInt32ArrayBuilder *builder_beginPos15;
+GArrowStringArrayBuilder *builder_sam15;
+
+GArrowArray *array_beginPos15_1;
+GArrowArray *array_sam15_1;
+GArrowInt32ArrayBuilder *builder_beginPos15_1;
+GArrowStringArrayBuilder *builder_sam15_1;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos16;
+GArrowArray *array_sam16;
+GArrowInt32ArrayBuilder *builder_beginPos16;
+GArrowStringArrayBuilder *builder_sam16;
+
+GArrowArray *array_beginPos16_1;
+GArrowArray *array_sam16_1;
+GArrowInt32ArrayBuilder *builder_beginPos16_1;
+GArrowStringArrayBuilder *builder_sam16_1;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos17;
+GArrowArray *array_sam17;
+GArrowInt32ArrayBuilder *builder_beginPos17;
+GArrowStringArrayBuilder *builder_sam17;
+
+GArrowArray *array_beginPos17_1;
+GArrowArray *array_sam17_1;
+GArrowInt32ArrayBuilder *builder_beginPos17_1;
+GArrowStringArrayBuilder *builder_sam17_1;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos18;
+GArrowArray *array_sam18;
+GArrowInt32ArrayBuilder *builder_beginPos18;
+GArrowStringArrayBuilder *builder_sam18;
+
+GArrowArray *array_beginPos18_1;
+GArrowArray *array_sam18_1;
+GArrowInt32ArrayBuilder *builder_beginPos18_1;
+GArrowStringArrayBuilder *builder_sam18_1;
+
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos19;
+GArrowArray *array_sam19;
+GArrowInt32ArrayBuilder *builder_beginPos19;
+GArrowStringArrayBuilder *builder_sam19;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos20;
+GArrowArray *array_sam20;
+GArrowInt32ArrayBuilder *builder_beginPos20;
+GArrowStringArrayBuilder *builder_sam20;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos21;
+GArrowArray *array_sam21;
+GArrowInt32ArrayBuilder *builder_beginPos21;
+GArrowStringArrayBuilder *builder_sam21;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPos22;
+GArrowArray *array_sam22;
+GArrowInt32ArrayBuilder *builder_beginPos22;
+GArrowStringArrayBuilder *builder_sam22;
+
+
+///////////////////////////////////////////////
+GArrowArray *array_beginPosX;
+GArrowArray *array_samX;
+GArrowInt32ArrayBuilder *builder_beginPosX;
+GArrowStringArrayBuilder *builder_samX;
+
+GArrowArray *array_beginPosX_1;
+GArrowArray *array_samX_1;
+GArrowInt32ArrayBuilder *builder_beginPosX_1;
+GArrowStringArrayBuilder *builder_samX_1;
+
+GArrowArray *array_beginPosX_2;
+GArrowArray *array_samX_2;
+GArrowInt32ArrayBuilder *builder_beginPosX_2;
+GArrowStringArrayBuilder *builder_samX_2;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPosY;
+GArrowArray *array_samY;
+GArrowInt32ArrayBuilder *builder_beginPosY;
+GArrowStringArrayBuilder *builder_samY;
+
+////////////////////////////////////////////////
+GArrowArray *array_beginPosM;
+GArrowArray *array_samM;
+GArrowInt32ArrayBuilder *builder_beginPosM;
+GArrowStringArrayBuilder *builder_samM;
+
+////////////////////////////////////////////////
+
+
+GArrowSchema* getSchema(void)
+{
+    GArrowSchema *schema;
+    //RecordBatch creation
+    GArrowField *f0 = garrow_field_new("beginPoss", GARROW_DATA_TYPE(garrow_int32_data_type_new()));
+    GArrowField *f1 = garrow_field_new("sam", GARROW_DATA_TYPE(garrow_string_data_type_new()));
+
+    GList *fields = NULL;
+    fields = g_list_append(fields, f0);
+    fields = g_list_append(fields, f1);
+
+    //Create schema and free unnecessary fields
+    schema = garrow_schema_new(fields);
+    g_list_free(fields);
+    g_object_unref(f0);
+    g_object_unref(f1);
+
+    return schema;
+}
+
+GArrowRecordBatch * create_arrow_record_batch(gint64 count, GArrowArray *array_beginPos,GArrowArray *array_sam)
+{
+    GArrowSchema *schema;
+    GArrowRecordBatch *batch_genomics;
+
+    schema = getSchema();
+
+    GList *columns_genomics;
+    columns_genomics = g_list_append(columns_genomics,array_beginPos);
+    columns_genomics = g_list_append(columns_genomics,array_sam);
+
+    batch_genomics = garrow_record_batch_new(schema,count,columns_genomics,NULL);
+
+    g_list_free(columns_genomics);
+
+    return batch_genomics;
+}
+
+void arrow_builders_start(void)
+{
+  builder_beginPos1 = garrow_int32_array_builder_new();
+  builder_sam1 = garrow_string_array_builder_new();
+
+  builder_beginPos1_1 = garrow_int32_array_builder_new();
+  builder_sam1_1 = garrow_string_array_builder_new();
+
+  builder_beginPos1_2 = garrow_int32_array_builder_new();
+  builder_sam1_2 = garrow_string_array_builder_new();
+
+  builder_beginPos1_3 = garrow_int32_array_builder_new();
+  builder_sam1_3 = garrow_string_array_builder_new();
+
+  builder_beginPos1_4 = garrow_int32_array_builder_new();
+  builder_sam1_4 = garrow_string_array_builder_new();
+///////////////////////////////////////////////////
+
+  builder_beginPos2 = garrow_int32_array_builder_new();
+  builder_sam2 = garrow_string_array_builder_new();
+
+  builder_beginPos2_1 = garrow_int32_array_builder_new();
+  builder_sam2_1 = garrow_string_array_builder_new();
+
+  builder_beginPos2_2 = garrow_int32_array_builder_new();
+  builder_sam2_2 = garrow_string_array_builder_new();
+
+  builder_beginPos2_3 = garrow_int32_array_builder_new();
+  builder_sam2_3 = garrow_string_array_builder_new();
+
+  builder_beginPos2_4 = garrow_int32_array_builder_new();
+  builder_sam2_4 = garrow_string_array_builder_new();
+///////////////////////////////////////////////////
+
+  builder_beginPos3 = garrow_int32_array_builder_new();
+  builder_sam3 = garrow_string_array_builder_new();
+
+  builder_beginPos3_1 = garrow_int32_array_builder_new();
+  builder_sam3_1 = garrow_string_array_builder_new();
+
+  builder_beginPos3_2 = garrow_int32_array_builder_new();
+  builder_sam3_2 = garrow_string_array_builder_new();
+
+  builder_beginPos3_3 = garrow_int32_array_builder_new();
+  builder_sam3_3 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos4 = garrow_int32_array_builder_new();
+  builder_sam4 = garrow_string_array_builder_new();
+
+  builder_beginPos4_1 = garrow_int32_array_builder_new();
+  builder_sam4_1 = garrow_string_array_builder_new();
+
+  builder_beginPos4_2 = garrow_int32_array_builder_new();
+  builder_sam4_2 = garrow_string_array_builder_new();
+
+  builder_beginPos4_3 = garrow_int32_array_builder_new();
+  builder_sam4_3 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos5 = garrow_int32_array_builder_new();
+  builder_sam5 = garrow_string_array_builder_new();
+
+  builder_beginPos5_1 = garrow_int32_array_builder_new();
+  builder_sam5_1 = garrow_string_array_builder_new();
+
+  builder_beginPos5_2 = garrow_int32_array_builder_new();
+  builder_sam5_2 = garrow_string_array_builder_new();
+
+  builder_beginPos5_3 = garrow_int32_array_builder_new();
+  builder_sam5_3 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos6 = garrow_int32_array_builder_new();
+  builder_sam6 = garrow_string_array_builder_new();
+
+  builder_beginPos6_1 = garrow_int32_array_builder_new();
+  builder_sam6_1 = garrow_string_array_builder_new();
+
+  builder_beginPos6_2 = garrow_int32_array_builder_new();
+  builder_sam6_2 = garrow_string_array_builder_new();
+
+  builder_beginPos6_3 = garrow_int32_array_builder_new();
+  builder_sam6_3 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos7 = garrow_int32_array_builder_new();
+  builder_sam7 = garrow_string_array_builder_new();
+
+  builder_beginPos7_1 = garrow_int32_array_builder_new();
+  builder_sam7_1 = garrow_string_array_builder_new();
+
+  builder_beginPos7_2 = garrow_int32_array_builder_new();
+  builder_sam7_2 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos8 = garrow_int32_array_builder_new();
+  builder_sam8 = garrow_string_array_builder_new();
+
+  builder_beginPos8_1 = garrow_int32_array_builder_new();
+  builder_sam8_1 = garrow_string_array_builder_new();
+
+  builder_beginPos8_2 = garrow_int32_array_builder_new();
+  builder_sam8_2 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos9 = garrow_int32_array_builder_new();
+  builder_sam9 = garrow_string_array_builder_new();
+
+  builder_beginPos9_1 = garrow_int32_array_builder_new();
+  builder_sam9_1 = garrow_string_array_builder_new();
+
+  builder_beginPos9_2 = garrow_int32_array_builder_new();
+  builder_sam9_2 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos10 = garrow_int32_array_builder_new();
+  builder_sam10 = garrow_string_array_builder_new();
+
+  builder_beginPos10_1 = garrow_int32_array_builder_new();
+  builder_sam10_1 = garrow_string_array_builder_new();
+
+  builder_beginPos10_2 = garrow_int32_array_builder_new();
+  builder_sam10_2 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos11 = garrow_int32_array_builder_new();
+  builder_sam11 = garrow_string_array_builder_new();
+
+  builder_beginPos11_1 = garrow_int32_array_builder_new();
+  builder_sam11_1 = garrow_string_array_builder_new();
+
+  builder_beginPos11_2 = garrow_int32_array_builder_new();
+  builder_sam11_2 = garrow_string_array_builder_new();
+
+
+///////////////////////////////////////////////////
+
+  builder_beginPos12 = garrow_int32_array_builder_new();
+  builder_sam12 = garrow_string_array_builder_new();
+
+  builder_beginPos12_1 = garrow_int32_array_builder_new();
+  builder_sam12_1 = garrow_string_array_builder_new();
+
+  builder_beginPos12_2 = garrow_int32_array_builder_new();
+  builder_sam12_2 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos13 = garrow_int32_array_builder_new();
+  builder_sam13 = garrow_string_array_builder_new();
+
+  builder_beginPos13_1 = garrow_int32_array_builder_new();
+  builder_sam13_1 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos14 = garrow_int32_array_builder_new();
+  builder_sam14 = garrow_string_array_builder_new();
+
+  builder_beginPos14_1 = garrow_int32_array_builder_new();
+  builder_sam14_1 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos15 = garrow_int32_array_builder_new();
+  builder_sam15 = garrow_string_array_builder_new();
+
+  builder_beginPos15_1 = garrow_int32_array_builder_new();
+  builder_sam15_1 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos16 = garrow_int32_array_builder_new();
+  builder_sam16 = garrow_string_array_builder_new();
+
+  builder_beginPos16_1 = garrow_int32_array_builder_new();
+  builder_sam16_1 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos17 = garrow_int32_array_builder_new();
+  builder_sam17 = garrow_string_array_builder_new();
+
+  builder_beginPos17_1 = garrow_int32_array_builder_new();
+  builder_sam17_1 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos18 = garrow_int32_array_builder_new();
+  builder_sam18 = garrow_string_array_builder_new();
+
+  builder_beginPos18_1 = garrow_int32_array_builder_new();
+  builder_sam18_1 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos19 = garrow_int32_array_builder_new();
+  builder_sam19 = garrow_string_array_builder_new();
+///////////////////////////////////////////////////
+
+  builder_beginPos20 = garrow_int32_array_builder_new();
+  builder_sam20 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPos21 = garrow_int32_array_builder_new();
+  builder_sam21 = garrow_string_array_builder_new();
+///////////////////////////////////////////////////
+
+  builder_beginPos22 = garrow_int32_array_builder_new();
+  builder_sam22 = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPosX = garrow_int32_array_builder_new();
+  builder_samX = garrow_string_array_builder_new();
+
+  builder_beginPosX_1 = garrow_int32_array_builder_new();
+  builder_samX_1 = garrow_string_array_builder_new();
+
+  builder_beginPosX_2 = garrow_int32_array_builder_new();
+  builder_samX_2 = garrow_string_array_builder_new();
+
+
+///////////////////////////////////////////////////
+
+  builder_beginPosY = garrow_int32_array_builder_new();
+  builder_samY = garrow_string_array_builder_new();
+
+///////////////////////////////////////////////////
+
+  builder_beginPosM = garrow_int32_array_builder_new();
+  builder_samM = garrow_string_array_builder_new();
+
+
+
+}
+
+gboolean
+arrow_builders_append(gint32 builder_id, gint32 beginPos, const gchar *sam)
+    {
+        gboolean success = TRUE;
+        GError *error = NULL;
+
+        if(builder_id == 1) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam1, sam, &error);
+            }
+        }
+	else if(builder_id == 110) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos1_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam1_1, sam, &error);
+            }
+        }
+	else if(builder_id == 120) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos1_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam1_2, sam, &error);
+            }
+        }
+        else if(builder_id == 130) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos1_3, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam1_3, sam, &error);
+            }
+        }
+        else if(builder_id == 140) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos1_4, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam1_4, sam, &error);
+            }
+        }
+
+else if(builder_id == 2) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam2, sam, &error);
+            }
+        }
+	else if(builder_id == 210) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos2_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam2_1, sam, &error);
+            }
+        }
+	else if(builder_id == 220) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos2_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam2_2, sam, &error);
+            }
+        }
+        else if(builder_id == 230) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos2_3, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam2_3, sam, &error);
+            }
+        }
+        else if(builder_id == 240) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos2_4, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam2_4, sam, &error);
+            }
+        }
+else if(builder_id == 3) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos3, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam3, sam, &error);
+            }
+        }
+	else if(builder_id == 31) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos3_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam3_1, sam, &error);
+            }
+        }
+	else if(builder_id == 32) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos3_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam3_2, sam, &error);
+            }
+        }
+        else if(builder_id == 33) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos3_3, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam3_3, sam, &error);
+            }
+        }
+
+else if(builder_id == 4) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos4, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam4, sam, &error);
+            }
+        }
+	else if(builder_id == 41) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos4_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam4_1, sam, &error);
+            }
+        }
+	else if(builder_id == 42) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos4_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam4_2, sam, &error);
+            }
+        }
+        else if(builder_id == 43) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos4_3, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam4_3, sam, &error);
+            }
+        }
+else if(builder_id == 5) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos5, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam5, sam, &error);
+            }
+        }
+	else if(builder_id == 51) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos5_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam5_1, sam, &error);
+            }
+        }
+	else if(builder_id == 52) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos5_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam5_2, sam, &error);
+            }
+        }
+        else if(builder_id == 53) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos5_3, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam5_3, sam, &error);
+            }
+        }
+else if(builder_id == 6) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos6, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam6, sam, &error);
+            }
+        }
+	else if(builder_id == 61) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos6_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam6_1, sam, &error);
+            }
+        }
+	else if(builder_id == 62) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos6_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam6_2, sam, &error);
+            }
+        }
+        else if(builder_id == 63) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos6_3, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam6_3, sam, &error);
+            }
+        }
+
+else if(builder_id == 7) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos7, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam7, sam, &error);
+            }
+        }
+	else if(builder_id == 71) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos7_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam7_1, sam, &error);
+            }
+        }
+	else if(builder_id == 72) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos7_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam7_2, sam, &error);
+            }
+        }
+else if(builder_id == 8) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos8, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam8, sam, &error);
+            }
+        }
+	else if(builder_id == 81) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos8_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam8_1, sam, &error);
+            }
+        }
+	else if(builder_id == 82) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos8_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam8_2, sam, &error);
+            }
+        }
+else if(builder_id == 9) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos9, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam9, sam, &error);
+            }
+        }
+	else if(builder_id == 91) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos9_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam9_1, sam, &error);
+            }
+        }
+	else if(builder_id == 92) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos9_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam9_2, sam, &error);
+            }
+        }
+else if(builder_id == 10) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos10, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam10, sam, &error);
+            }
+        }
+	else if(builder_id == 101) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos10_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam10_1, sam, &error);
+            }
+        }
+	else if(builder_id == 102) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos10_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam10_2, sam, &error);
+            }
+        }
+
+else if(builder_id == 11) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos11, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam11, sam, &error);
+            }
+        }
+	else if(builder_id == 111) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos11_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam11_1, sam, &error);
+            }
+        }
+	else if(builder_id == 112) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos11_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam11_2, sam, &error);
+            }
+        }
+
+else if(builder_id == 12) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos12, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam12, sam, &error);
+            }
+        }
+	else if(builder_id == 121) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos12_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam12_1, sam, &error);
+            }
+        }
+	else if(builder_id == 122) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos12_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam12_2, sam, &error);
+            }
+        }
+
+else if(builder_id == 13) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos13, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam13, sam, &error);
+            }
+        }
+	else if(builder_id == 131) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos13_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam13_1, sam, &error);
+            }
+        }
+
+else if(builder_id == 14) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos14, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam14, sam, &error);
+            }
+        }
+	else if(builder_id == 141) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos14_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam14_1, sam, &error);
+            }
+        }
+
+else if(builder_id == 15) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos15, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam15, sam, &error);
+            }
+        }
+	else if(builder_id == 151) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos15_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam15_1, sam, &error);
+            }
+        }
+
+else if(builder_id == 16) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos16, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam16, sam, &error);
+            }
+        }
+	else if(builder_id == 161) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos16_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam16_1, sam, &error);
+            }
+        }
+
+else if(builder_id == 17) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos17, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam17, sam, &error);
+            }
+        }
+	else if(builder_id == 171) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos17_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam17_1, sam, &error);
+            }
+        }
+
+else if(builder_id == 18) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos18, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam18, sam, &error);
+            }
+        }
+	else if(builder_id == 181) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos18_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam18_1, sam, &error);
+            }
+        }
+
+else if(builder_id == 19) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos19, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam19, sam, &error);
+            }
+        }
+else if(builder_id == 20) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos20, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam20, sam, &error);
+            }
+        }
+else if(builder_id == 21) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos21, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam21, sam, &error);
+            }
+        }
+else if(builder_id == 22) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPos22, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_sam22, sam, &error);
+            }
+        }
+
+else if(builder_id == 23) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPosX, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_samX, sam, &error);
+            }
+        }
+	else if(builder_id == 231) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPosX_1, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_samX_1, sam, &error);
+            }
+        }
+	else if(builder_id == 232) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPosX_2, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_samX_2, sam, &error);
+            }
+        }
+
+
+else if(builder_id == 24) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPosY, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_samY, sam, &error);
+            }
+        }
+else if(builder_id == 25) {
+            if (success) {
+                success = garrow_int32_array_builder_append(builder_beginPosM, beginPos, &error);
+            }
+            if (success) {
+                success = garrow_string_array_builder_append(builder_samM, sam, &error);
+            }
+        }
+
+
+   return success;
+}
+
+GArrowRecordBatch *
+arrow_builders_finish(gint32 builder_id, gint64 count)
+{
+ GError *error = NULL;
+ GArrowRecordBatch *batch_genomics;
+    if(builder_id == 1) {
+        array_beginPos1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos1), &error);
+        array_sam1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam1), &error);
+        g_object_unref(builder_beginPos1);
+        g_object_unref(builder_sam1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos1,array_sam1);
+
+        g_object_unref(array_beginPos1);
+        g_object_unref(array_sam1);
+    }
+    else if(builder_id == 110) {
+        array_beginPos1_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos1_1), &error);
+	array_sam1_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam1_1), &error);
+        g_object_unref(builder_beginPos1_1);
+        g_object_unref(builder_sam1_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos1_1,array_sam1_1);
+
+	g_object_unref(array_beginPos1_1);
+        g_object_unref(array_sam1_1);   
+    }
+    else if(builder_id == 120) {
+        array_beginPos1_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos1_2), &error);
+        array_sam1_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam1_2), &error);
+        g_object_unref(builder_beginPos1_2);
+        g_object_unref(builder_sam1_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos1_2,array_sam1_2);
+
+        g_object_unref(array_beginPos1_2);
+        g_object_unref(array_sam1_2);
+    }
+    else if(builder_id == 130) {
+        array_beginPos1_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos1_3), &error);
+        array_sam1_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam1_3), &error);
+        g_object_unref(builder_beginPos1_3);
+        g_object_unref(builder_sam1_3);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos1_3,array_sam1_3);
+
+        g_object_unref(array_beginPos1_3);
+        g_object_unref(array_sam1_3);
+    }
+    else if(builder_id == 140) {
+        array_beginPos1_4 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos1_4), &error);
+        array_sam1_4 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam1_4), &error);
+        g_object_unref(builder_beginPos1_4);
+        g_object_unref(builder_sam1_4);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos1_4,array_sam1_4);
+
+        g_object_unref(array_beginPos1_4);
+        g_object_unref(array_sam1_4);
+    }
+
+if(builder_id == 2) {
+        array_beginPos2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos2), &error);
+        array_sam2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam2), &error);
+        g_object_unref(builder_beginPos2);
+        g_object_unref(builder_sam2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos2,array_sam2);
+
+        g_object_unref(array_beginPos2);
+        g_object_unref(array_sam2);
+    }
+    else if(builder_id == 210) {
+        array_beginPos2_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos2_1), &error);
+	array_sam2_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam2_1), &error);
+        g_object_unref(builder_beginPos2_1);
+        g_object_unref(builder_sam2_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos2_1,array_sam2_1);
+
+	g_object_unref(array_beginPos2_1);
+        g_object_unref(array_sam2_1);   
+    }
+    else if(builder_id == 220) {
+        array_beginPos2_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos2_2), &error);
+        array_sam2_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam2_2), &error);
+        g_object_unref(builder_beginPos2_2);
+        g_object_unref(builder_sam2_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos2_2,array_sam2_2);
+
+        g_object_unref(array_beginPos2_2);
+        g_object_unref(array_sam2_2);
+    }
+    else if(builder_id == 230) {
+        array_beginPos2_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos2_3), &error);
+        array_sam2_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam2_3), &error);
+        g_object_unref(builder_beginPos2_3);
+        g_object_unref(builder_sam2_3);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos2_3,array_sam2_3);
+
+        g_object_unref(array_beginPos2_3);
+        g_object_unref(array_sam2_3);
+    }
+    else if(builder_id == 240) {
+        array_beginPos2_4 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos2_4), &error);
+        array_sam2_4 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam2_4), &error);
+        g_object_unref(builder_beginPos2_4);
+        g_object_unref(builder_sam2_4);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos2_4,array_sam2_4);
+
+        g_object_unref(array_beginPos2_4);
+        g_object_unref(array_sam2_4);
+    }
+
+if(builder_id == 3) {
+        array_beginPos3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos3), &error);
+        array_sam3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam3), &error);
+        g_object_unref(builder_beginPos3);
+        g_object_unref(builder_sam3);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos3,array_sam3);
+
+        g_object_unref(array_beginPos3);
+        g_object_unref(array_sam3);
+    }
+    else if(builder_id == 31) {
+        array_beginPos3_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos3_1), &error);
+	array_sam3_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam3_1), &error);
+        g_object_unref(builder_beginPos3_1);
+        g_object_unref(builder_sam3_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos3_1,array_sam3_1);
+
+	g_object_unref(array_beginPos3_1);
+        g_object_unref(array_sam3_1);   
+    }
+    else if(builder_id == 32) {
+        array_beginPos3_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos3_2), &error);
+        array_sam3_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam3_2), &error);
+        g_object_unref(builder_beginPos3_2);
+        g_object_unref(builder_sam3_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos3_2,array_sam3_2);
+
+        g_object_unref(array_beginPos3_2);
+        g_object_unref(array_sam3_2);
+    }
+    else if(builder_id == 33) {
+        array_beginPos3_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos3_3), &error);
+        array_sam3_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam3_3), &error);
+        g_object_unref(builder_beginPos3_3);
+        g_object_unref(builder_sam3_3);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos3_3,array_sam3_3);
+
+        g_object_unref(array_beginPos3_3);
+        g_object_unref(array_sam3_3);
+    }
+
+
+if(builder_id == 4) {
+        array_beginPos4 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos4), &error);
+        array_sam4 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam4), &error);
+        g_object_unref(builder_beginPos4);
+        g_object_unref(builder_sam4);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos4,array_sam4);
+
+        g_object_unref(array_beginPos4);
+        g_object_unref(array_sam4);
+    }
+    else if(builder_id == 41) {
+        array_beginPos4_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos4_1), &error);
+	array_sam4_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam4_1), &error);
+        g_object_unref(builder_beginPos4_1);
+        g_object_unref(builder_sam4_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos4_1,array_sam4_1);
+
+	g_object_unref(array_beginPos4_1);
+        g_object_unref(array_sam4_1);   
+    }
+    else if(builder_id == 42) {
+        array_beginPos4_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos4_2), &error);
+        array_sam4_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam4_2), &error);
+        g_object_unref(builder_beginPos4_2);
+        g_object_unref(builder_sam4_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos4_2,array_sam4_2);
+
+        g_object_unref(array_beginPos4_2);
+        g_object_unref(array_sam4_2);
+    }
+    else if(builder_id == 43) {
+        array_beginPos4_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos4_3), &error);
+        array_sam4_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam4_3), &error);
+        g_object_unref(builder_beginPos4_3);
+        g_object_unref(builder_sam4_3);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos4_3,array_sam4_3);
+
+        g_object_unref(array_beginPos4_3);
+        g_object_unref(array_sam4_3);
+    }
+
+if(builder_id == 5) {
+        array_beginPos5 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos5), &error);
+        array_sam5 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam5), &error);
+        g_object_unref(builder_beginPos5);
+        g_object_unref(builder_sam5);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos5,array_sam5);
+
+        g_object_unref(array_beginPos5);
+        g_object_unref(array_sam5);
+    }
+    else if(builder_id == 51) {
+        array_beginPos5_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos5_1), &error);
+	array_sam5_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam5_1), &error);
+        g_object_unref(builder_beginPos5_1);
+        g_object_unref(builder_sam5_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos5_1,array_sam5_1);
+
+	g_object_unref(array_beginPos5_1);
+        g_object_unref(array_sam5_1);   
+    }
+    else if(builder_id == 52) {
+        array_beginPos5_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos5_2), &error);
+        array_sam5_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam5_2), &error);
+        g_object_unref(builder_beginPos5_2);
+        g_object_unref(builder_sam5_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos5_2,array_sam5_2);
+
+        g_object_unref(array_beginPos5_2);
+        g_object_unref(array_sam5_2);
+    }
+    else if(builder_id == 53) {
+        array_beginPos5_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos5_3), &error);
+        array_sam5_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam5_3), &error);
+        g_object_unref(builder_beginPos5_3);
+        g_object_unref(builder_sam5_3);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos5_3,array_sam5_3);
+
+        g_object_unref(array_beginPos5_3);
+        g_object_unref(array_sam5_3);
+    }
+
+if(builder_id == 6) {
+        array_beginPos6 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos6), &error);
+        array_sam6 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam6), &error);
+        g_object_unref(builder_beginPos6);
+        g_object_unref(builder_sam6);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos6,array_sam6);
+
+        g_object_unref(array_beginPos6);
+        g_object_unref(array_sam6);
+    }
+    else if(builder_id == 61) {
+        array_beginPos6_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos6_1), &error);
+	array_sam6_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam6_1), &error);
+        g_object_unref(builder_beginPos6_1);
+        g_object_unref(builder_sam6_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos6_1,array_sam6_1);
+
+	g_object_unref(array_beginPos6_1);
+        g_object_unref(array_sam6_1);   
+    }
+    else if(builder_id == 62) {
+        array_beginPos6_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos6_2), &error);
+        array_sam6_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam6_2), &error);
+        g_object_unref(builder_beginPos6_2);
+        g_object_unref(builder_sam6_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos6_2,array_sam6_2);
+
+        g_object_unref(array_beginPos6_2);
+        g_object_unref(array_sam6_2);
+    }
+    else if(builder_id == 63) {
+        array_beginPos6_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos6_3), &error);
+        array_sam6_3 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam6_3), &error);
+        g_object_unref(builder_beginPos6_3);
+        g_object_unref(builder_sam6_3);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos6_3,array_sam6_3);
+
+        g_object_unref(array_beginPos6_3);
+        g_object_unref(array_sam6_3);
+    }
+if(builder_id == 7) {
+        array_beginPos7 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos7), &error);
+        array_sam7 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam7), &error);
+        g_object_unref(builder_beginPos7);
+        g_object_unref(builder_sam7);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos7,array_sam7);
+
+        g_object_unref(array_beginPos7);
+        g_object_unref(array_sam7);
+    }
+    else if(builder_id == 71) {
+        array_beginPos7_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos7_1), &error);
+	array_sam7_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam7_1), &error);
+        g_object_unref(builder_beginPos7_1);
+        g_object_unref(builder_sam7_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos7_1,array_sam7_1);
+
+	g_object_unref(array_beginPos7_1);
+        g_object_unref(array_sam7_1);   
+    }
+    else if(builder_id == 72) {
+        array_beginPos7_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos7_2), &error);
+        array_sam7_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam7_2), &error);
+        g_object_unref(builder_beginPos7_2);
+        g_object_unref(builder_sam7_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos7_2,array_sam7_2);
+
+        g_object_unref(array_beginPos7_2);
+        g_object_unref(array_sam7_2);
+    }
+if(builder_id == 8) {
+        array_beginPos8 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos8), &error);
+        array_sam8 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam8), &error);
+        g_object_unref(builder_beginPos8);
+        g_object_unref(builder_sam8);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos8,array_sam8);
+
+        g_object_unref(array_beginPos8);
+        g_object_unref(array_sam8);
+    }
+    else if(builder_id == 81) {
+        array_beginPos8_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos8_1), &error);
+	array_sam8_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam8_1), &error);
+        g_object_unref(builder_beginPos8_1);
+        g_object_unref(builder_sam8_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos8_1,array_sam8_1);
+
+	g_object_unref(array_beginPos8_1);
+        g_object_unref(array_sam8_1);   
+    }
+    else if(builder_id == 82) {
+        array_beginPos8_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos8_2), &error);
+        array_sam8_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam8_2), &error);
+        g_object_unref(builder_beginPos8_2);
+        g_object_unref(builder_sam8_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos8_2,array_sam8_2);
+
+        g_object_unref(array_beginPos8_2);
+        g_object_unref(array_sam8_2);
+    }
+if(builder_id == 9) {
+        array_beginPos9 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos9), &error);
+        array_sam9 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam9), &error);
+        g_object_unref(builder_beginPos9);
+        g_object_unref(builder_sam9);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos9,array_sam9);
+
+        g_object_unref(array_beginPos9);
+        g_object_unref(array_sam9);
+    }
+    else if(builder_id == 91) {
+        array_beginPos9_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos9_1), &error);
+	array_sam9_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam9_1), &error);
+        g_object_unref(builder_beginPos9_1);
+        g_object_unref(builder_sam9_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos9_1,array_sam9_1);
+
+	g_object_unref(array_beginPos9_1);
+        g_object_unref(array_sam9_1);   
+    }
+    else if(builder_id == 92) {
+        array_beginPos9_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos9_2), &error);
+        array_sam9_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam9_2), &error);
+        g_object_unref(builder_beginPos9_2);
+        g_object_unref(builder_sam9_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos9_2,array_sam9_2);
+
+        g_object_unref(array_beginPos9_2);
+        g_object_unref(array_sam9_2);
+    }
+if(builder_id == 10) {
+        array_beginPos10 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos10), &error);
+        array_sam10 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam10), &error);
+        g_object_unref(builder_beginPos10);
+        g_object_unref(builder_sam10);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos10,array_sam10);
+
+        g_object_unref(array_beginPos10);
+        g_object_unref(array_sam10);
+    }
+    else if(builder_id == 101) {
+        array_beginPos10_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos10_1), &error);
+	array_sam10_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam10_1), &error);
+        g_object_unref(builder_beginPos10_1);
+        g_object_unref(builder_sam10_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos10_1,array_sam10_1);
+
+	g_object_unref(array_beginPos10_1);
+        g_object_unref(array_sam10_1);   
+    }
+    else if(builder_id == 102) {
+        array_beginPos10_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos10_2), &error);
+        array_sam10_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam10_2), &error);
+        g_object_unref(builder_beginPos10_2);
+        g_object_unref(builder_sam10_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos10_2,array_sam10_2);
+
+        g_object_unref(array_beginPos10_2);
+        g_object_unref(array_sam10_2);
+    }
+if(builder_id == 11) {
+        array_beginPos11 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos11), &error);
+        array_sam11 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam11), &error);
+        g_object_unref(builder_beginPos11);
+        g_object_unref(builder_sam11);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos11,array_sam11);
+
+        g_object_unref(array_beginPos11);
+        g_object_unref(array_sam11);
+    }
+    else if(builder_id == 111) {
+        array_beginPos11_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos11_1), &error);
+	array_sam11_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam11_1), &error);
+        g_object_unref(builder_beginPos11_1);
+        g_object_unref(builder_sam11_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos11_1,array_sam11_1);
+
+	g_object_unref(array_beginPos11_1);
+        g_object_unref(array_sam11_1);   
+    }
+    else if(builder_id == 112) {
+        array_beginPos11_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos11_2), &error);
+        array_sam11_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam11_2), &error);
+        g_object_unref(builder_beginPos11_2);
+        g_object_unref(builder_sam11_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos11_2,array_sam11_2);
+
+        g_object_unref(array_beginPos11_2);
+        g_object_unref(array_sam11_2);
+    }
+if(builder_id == 12) {
+        array_beginPos12 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos12), &error);
+        array_sam12 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam12), &error);
+        g_object_unref(builder_beginPos12);
+        g_object_unref(builder_sam12);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos12,array_sam12);
+
+        g_object_unref(array_beginPos12);
+        g_object_unref(array_sam12);
+    }
+    else if(builder_id == 121) {
+        array_beginPos12_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos12_1), &error);
+	array_sam12_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam12_1), &error);
+        g_object_unref(builder_beginPos12_1);
+        g_object_unref(builder_sam12_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos12_1,array_sam12_1);
+
+	g_object_unref(array_beginPos12_1);
+        g_object_unref(array_sam12_1);   
+    }
+    else if(builder_id == 122) {
+        array_beginPos12_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos12_2), &error);
+        array_sam12_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam12_2), &error);
+        g_object_unref(builder_beginPos12_2);
+        g_object_unref(builder_sam12_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos12_2,array_sam12_2);
+
+        g_object_unref(array_beginPos12_2);
+        g_object_unref(array_sam12_2);
+    }
+if(builder_id == 13) {
+        array_beginPos13 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos13), &error);
+        array_sam13 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam13), &error);
+        g_object_unref(builder_beginPos13);
+        g_object_unref(builder_sam13);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos13,array_sam13);
+
+        g_object_unref(array_beginPos13);
+        g_object_unref(array_sam13);
+    }
+    else if(builder_id == 131) {
+        array_beginPos13_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos13_1), &error);
+	array_sam13_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam13_1), &error);
+        g_object_unref(builder_beginPos13_1);
+        g_object_unref(builder_sam13_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos13_1,array_sam13_1);
+
+	g_object_unref(array_beginPos13_1);
+        g_object_unref(array_sam13_1);   
+    }
+
+if(builder_id == 14) {
+        array_beginPos14 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos14), &error);
+        array_sam14 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam14), &error);
+        g_object_unref(builder_beginPos14);
+        g_object_unref(builder_sam14);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos14,array_sam14);
+
+        g_object_unref(array_beginPos14);
+        g_object_unref(array_sam14);
+    }
+    else if(builder_id == 141) {
+        array_beginPos14_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos14_1), &error);
+	array_sam14_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam14_1), &error);
+        g_object_unref(builder_beginPos14_1);
+        g_object_unref(builder_sam14_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos14_1,array_sam14_1);
+
+	g_object_unref(array_beginPos14_1);
+        g_object_unref(array_sam14_1);   
+    }
+
+if(builder_id == 15) {
+        array_beginPos15 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos15), &error);
+        array_sam15 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam15), &error);
+        g_object_unref(builder_beginPos15);
+        g_object_unref(builder_sam15);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos15,array_sam15);
+
+        g_object_unref(array_beginPos15);
+        g_object_unref(array_sam15);
+    }
+    else if(builder_id == 151) {
+        array_beginPos15_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos15_1), &error);
+	array_sam15_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam15_1), &error);
+        g_object_unref(builder_beginPos15_1);
+        g_object_unref(builder_sam15_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos15_1,array_sam15_1);
+
+	g_object_unref(array_beginPos15_1);
+        g_object_unref(array_sam15_1);   
+    }
+
+if(builder_id == 16) {
+        array_beginPos16 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos16), &error);
+        array_sam16 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam16), &error);
+        g_object_unref(builder_beginPos16);
+        g_object_unref(builder_sam16);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos16,array_sam16);
+
+        g_object_unref(array_beginPos16);
+        g_object_unref(array_sam16);
+    }
+    else if(builder_id == 161) {
+        array_beginPos16_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos16_1), &error);
+	array_sam16_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam16_1), &error);
+        g_object_unref(builder_beginPos16_1);
+        g_object_unref(builder_sam16_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos16_1,array_sam16_1);
+
+	g_object_unref(array_beginPos16_1);
+        g_object_unref(array_sam16_1);   
+    }
+if(builder_id == 17) {
+        array_beginPos17 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos17), &error);
+        array_sam17 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam17), &error);
+        g_object_unref(builder_beginPos17);
+        g_object_unref(builder_sam17);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos17,array_sam17);
+
+        g_object_unref(array_beginPos17);
+        g_object_unref(array_sam17);
+    }
+    else if(builder_id == 171) {
+        array_beginPos17_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos17_1), &error);
+	array_sam17_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam17_1), &error);
+        g_object_unref(builder_beginPos17_1);
+        g_object_unref(builder_sam17_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos17_1,array_sam17_1);
+
+	g_object_unref(array_beginPos17_1);
+        g_object_unref(array_sam17_1);   
+    }
+if(builder_id == 18) {
+        array_beginPos18 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos18), &error);
+        array_sam18 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam18), &error);
+        g_object_unref(builder_beginPos18);
+        g_object_unref(builder_sam18);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos18,array_sam18);
+
+        g_object_unref(array_beginPos18);
+        g_object_unref(array_sam18);
+    }
+    else if(builder_id == 181) {
+        array_beginPos18_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos18_1), &error);
+	array_sam18_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam18_1), &error);
+        g_object_unref(builder_beginPos18_1);
+        g_object_unref(builder_sam18_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos18_1,array_sam18_1);
+
+	g_object_unref(array_beginPos18_1);
+        g_object_unref(array_sam18_1);   
+    }
+
+if(builder_id == 19) {
+        array_beginPos19 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos19), &error);
+        array_sam19 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam19), &error);
+        g_object_unref(builder_beginPos19);
+        g_object_unref(builder_sam19);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos19,array_sam19);
+
+        g_object_unref(array_beginPos19);
+        g_object_unref(array_sam19);
+    }
+
+if(builder_id == 20) {
+        array_beginPos20 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos20), &error);
+        array_sam20 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam20), &error);
+        g_object_unref(builder_beginPos20);
+        g_object_unref(builder_sam20);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos20,array_sam20);
+
+        g_object_unref(array_beginPos20);
+        g_object_unref(array_sam20);
+    }
+if(builder_id == 21) {
+        array_beginPos21 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos21), &error);
+        array_sam21 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam21), &error);
+        g_object_unref(builder_beginPos21);
+        g_object_unref(builder_sam21);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos21,array_sam21);
+
+        g_object_unref(array_beginPos21);
+        g_object_unref(array_sam21);
+    }
+if(builder_id == 22) {
+        array_beginPos22 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPos22), &error);
+        array_sam22 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_sam22), &error);
+        g_object_unref(builder_beginPos22);
+        g_object_unref(builder_sam22);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPos22,array_sam22);
+
+        g_object_unref(array_beginPos22);
+        g_object_unref(array_sam22);
+    }
+
+if(builder_id == 23) {
+        array_beginPosX = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPosX), &error);
+        array_samX = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_samX), &error);
+        g_object_unref(builder_beginPosX);
+        g_object_unref(builder_samX);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPosX,array_samX);
+
+        g_object_unref(array_beginPosX);
+        g_object_unref(array_samX);
+    }
+    else if(builder_id == 231) {
+        array_beginPosX_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPosX_1), &error);
+	array_samX_1 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_samX_1), &error);
+        g_object_unref(builder_beginPosX_1);
+        g_object_unref(builder_samX_1);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPosX_1,array_samX_1);
+
+	g_object_unref(array_beginPosX_1);
+        g_object_unref(array_samX_1);   
+    }
+    else if(builder_id == 232) {
+        array_beginPosX_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPosX_2), &error);
+        array_samX_2 = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_samX_2), &error);
+        g_object_unref(builder_beginPosX_2);
+        g_object_unref(builder_samX_2);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPosX_2,array_samX_2);
+
+        g_object_unref(array_beginPosX_2);
+        g_object_unref(array_samX_2);
+    }
+
+if(builder_id == 24) {
+        array_beginPosY = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPosY), &error);
+        array_samY = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_samY), &error);
+        g_object_unref(builder_beginPosY);
+        g_object_unref(builder_samY);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPosY,array_samY);
+
+        g_object_unref(array_beginPosY);
+        g_object_unref(array_samY);
+    }
+
+if(builder_id == 25) {
+        array_beginPosM = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_beginPosM), &error);
+        array_samM = garrow_array_builder_finish(GARROW_ARRAY_BUILDER(builder_samM), &error);
+        g_object_unref(builder_beginPosM);
+        g_object_unref(builder_samM);
+
+        batch_genomics = create_arrow_record_batch(count, array_beginPosM,array_samM);
+
+        g_object_unref(array_beginPosM);
+        g_object_unref(array_samM);
+    }
+
+    return batch_genomics;
+}
+/////////////////////////////////////////////////////
+//		Arrow-Functionality                //
+/////////////////////////////////////////////////////
+char* generateRandomString(int size) {
+    int i;
+    int x;
+    char *res = malloc(size + 1);
+    //srand((unsigned int)time(NULL));
+    for(i = 0; i < size; i++) {
+        res[i] = (char) (rand()%(ASCII_END-ASCII_START))+ASCII_START;
+    }
+    res[size + 1] = '\0';
+    return res;
+}
+
+void create_plasma_object(GArrowRecordBatch *batch_genomics)
+{
+    const char* id_arr[20];
+    char objID_file[] = "/dev/shm/objID.txt";
+    memcpy(id_arr, generateRandomString(20),20);
+
+    FILE *fOut;
+    fOut = fopen(objID_file, "a");
+    fputs(id_arr, fOut);
+    //fputs('\t', fOut);
+    //fputs(host, fOut);
+    fputc('\n', fOut);
+    fclose(fOut);
+
+    gboolean success = TRUE;
+    GError *error = NULL;
+
+    GPlasmaClient *gPlasmaClient;
+    GPlasmaObjectID *object_id;
+    GPlasmaClientCreateOptions *create_options;
+    GPlasmaClientOptions *gplasmaClient_options;
+    GArrowWriteOptions *garrowwriter_options;
+    GPlasmaCreatedObject *Object;
+    GArrowBuffer *arrowBuffer;
+
+    //err_fputs(id_arr, stdout);
+    //err_fputs("\n", stdout);
+
+    //arrowBuffer = GSerializeRecordBatch(batch_genomics);
+    garrowwriter_options = garrow_write_options_new();
+    arrowBuffer = garrow_record_batch_serialize(batch_genomics, garrowwriter_options, &error);
+    gint64 size = garrow_buffer_get_size(arrowBuffer);
+    GBytes *bytes = garrow_buffer_get_data(arrowBuffer);
+    gconstpointer *rbdata = g_bytes_get_data(bytes, &size);
+    g_bytes_unref(bytes);
+
+    //g_print("obj_id: %s\n", id_arr);
+    fprintf(stderr, "[%s] obj_id: %s , size: %ld \n", __func__, id_arr, size);
+
+    create_options = gplasma_client_create_options_new();
+    gplasmaClient_options = gplasma_client_options_new();
+    gPlasmaClient = gplasma_client_new("/tmp/plasma",gplasmaClient_options, &error);
+    object_id = gplasma_object_id_new(id_arr, 20, &error);
+
+    {
+        // It should be guint8 instead of gchar. We use gchar here just for convenient. 
+        guint8 metadata[] = "metadata";
+        gplasma_client_create_options_set_metadata(create_options, (const guint8 *)metadata, sizeof(metadata));
+    }
+    Object = gplasma_client_create(gPlasmaClient, object_id, size, create_options, &error);
+
+    g_object_unref(create_options);
+    {
+        GArrowBuffer *data;
+        g_object_get(Object, "data", &data, NULL);
+        //garrow_mutable_buffer_set_data(GARROW_MUTABLE_BUFFER(data),0,arrowBuffer,&error);
+        garrow_mutable_buffer_set_data(GARROW_MUTABLE_BUFFER(data),0, rbdata,size,&error);
+        g_object_unref(data);
+    }
+
+    gplasma_created_object_seal(Object, &error);
+    g_object_unref(Object);
+    gplasma_client_disconnect(gPlasmaClient, &error);
+    g_object_unref(gPlasmaClient);
+    g_object_unref(object_id);
+}
+
+void arrow_plasma_create(int id, long size) {
+    GArrowRecordBatch * rb_genomics;
+    rb_genomics=arrow_builders_finish(id, size);
+    //fprintf(stderr, "[%s] id:%d, counts: %ld \n", __func__, id, size);
+    //{
+    //    g_print("%s", garrow_record_batch_to_string(rb_genomics, NULL));
+    //    fprintf(stderr, "[%s] Arrow: %s\n", __func__, garrow_record_batch_to_string(rb_genomics, NULL));
+    //}
+    create_plasma_object(rb_genomics);
+    g_object_unref(rb_genomics);
+}
+int exist(const char *name)
+{
+    struct stat   buffer;
+    return (stat (name, &buffer) == 0);
+}
+
+void mm_arrow_start(void){
+    char file[] = "/dev/shm/objID.txt";
+    if(exist(file))
+      remove(file);
+    arrow_builders_start();
+}
+
+void mm_arrow_finish(void){
+    arrow_plasma_create(1,counts1); 
+    arrow_plasma_create(110,counts1_1);
+    arrow_plasma_create(120,counts1_2);
+    arrow_plasma_create(130,counts1_3);
+    arrow_plasma_create(140,counts1_4);
+
+    arrow_plasma_create(2,counts2); 
+    arrow_plasma_create(210,counts2_1);
+    arrow_plasma_create(220,counts2_2);
+    arrow_plasma_create(230,counts2_3);
+    arrow_plasma_create(240,counts2_4);
+
+    arrow_plasma_create(3,counts3); 
+    arrow_plasma_create(31,counts3_1);
+    arrow_plasma_create(32,counts3_2);
+    arrow_plasma_create(33,counts3_3);
+
+    arrow_plasma_create(4,counts4); 
+    arrow_plasma_create(41,counts4_1);
+    arrow_plasma_create(42,counts4_2);
+    arrow_plasma_create(43,counts4_3);
+
+    arrow_plasma_create(5,counts5); 
+    arrow_plasma_create(51,counts5_1);
+    arrow_plasma_create(52,counts5_2);
+    arrow_plasma_create(53,counts5_3);
+    arrow_plasma_create(6,counts6); 
+    arrow_plasma_create(61,counts6_1);
+    arrow_plasma_create(62,counts6_2);
+    arrow_plasma_create(63,counts6_3);
+
+    arrow_plasma_create(7,counts7); 
+    arrow_plasma_create(71,counts7_1);
+    arrow_plasma_create(72,counts7_2);
+
+    arrow_plasma_create(8,counts8); 
+    arrow_plasma_create(81,counts8_1);
+    arrow_plasma_create(82,counts8_2);
+
+    arrow_plasma_create(9,counts9); 
+    arrow_plasma_create(91,counts9_1);
+    arrow_plasma_create(92,counts9_2);
+
+    arrow_plasma_create(10,counts10); 
+    arrow_plasma_create(101,counts10_1);
+    arrow_plasma_create(102,counts10_2);
+
+    arrow_plasma_create(11,counts11); 
+    arrow_plasma_create(111,counts11_1);
+    arrow_plasma_create(112,counts11_2);
+
+    arrow_plasma_create(12,counts12); 
+    arrow_plasma_create(121,counts12_1);
+    arrow_plasma_create(122,counts12_2);
+
+    arrow_plasma_create(13,counts13); 
+    arrow_plasma_create(131,counts13_1);
+
+    arrow_plasma_create(14,counts14); 
+    arrow_plasma_create(141,counts14_1);
+
+    arrow_plasma_create(15,counts15); 
+    arrow_plasma_create(151,counts15_1);
+
+    arrow_plasma_create(16,counts16); 
+    arrow_plasma_create(161,counts16_1);
+
+    arrow_plasma_create(17,counts17); 
+    arrow_plasma_create(171,counts17_1);
+
+    arrow_plasma_create(18,counts18); 
+    arrow_plasma_create(181,counts18_1);
+
+    arrow_plasma_create(19,counts19);
+    arrow_plasma_create(20,counts20);
+    arrow_plasma_create(21,counts21);
+    arrow_plasma_create(22,counts22);
+
+    arrow_plasma_create(23,countsX);
+    arrow_plasma_create(231,countsX_1);
+    arrow_plasma_create(232,countsX_2);
+
+    arrow_plasma_create(24,countsY);
+    arrow_plasma_create(25,countsM);
+}
+
+////////////////////////END////////////////////////////
+
 
 struct mm_tbuf_s {
 	void *km;
@@ -593,14 +2754,374 @@ static void *worker_pipeline(void *shared, int step, void *in)
 							mm_write_sam3(&p->str, mi, t, i - seg_st, j, s->n_seg[k], &s->n_reg[seg_st], (const mm_reg1_t*const*)&s->reg[seg_st], km, p->opt->flag, s->rep_len[i]);
 						else
 							mm_write_paf3(&p->str, mi, t, r, km, p->opt->flag, s->rep_len[i]);
-						mm_err_puts(p->str.s);
+						//mm_err_puts(p->str.s);
+						if (strcmp(t->refID, "chr1")==0) //t->beginPos
+						{
+						    if (t->beginPos < 49850124 )  
+						    {arrow_builders_append(1, t->beginPos, p->str.s);counts1++;}
+						    else if (t->beginPos >= 49850124 && t->beginPos < 99700248) 
+						    {arrow_builders_append(110, t->beginPos, p->str.s);counts1_1++;}
+						    else if (t->beginPos >= 99700248 && t->beginPos < 149550372) 
+						    {arrow_builders_append(120, t->beginPos, p->str.s);counts1_2++;}
+						    else if (t->beginPos >= 149550372 && t->beginPos < 199400496)
+						    {arrow_builders_append(130, t->beginPos, p->str.s);counts1_3++;}
+						    else {arrow_builders_append(140, t->beginPos, p->str.s);counts1_4++;}
+						}
+						else if (strcmp(t->refID, "chr2")==0)
+						{
+						    if (t->beginPos < 48438705 )  
+						    {arrow_builders_append(2, t->beginPos, p->str.s);counts2++;}
+						    else if (t->beginPos >= 48438705 && t->beginPos < 96877410) 
+						    {arrow_builders_append(210, t->beginPos, p->str.s);counts2_1++;}
+						    else if (t->beginPos >= 96877410 && t->beginPos < 145316115) 
+						    {arrow_builders_append(220, t->beginPos, p->str.s);counts2_2++;}
+						    else if (t->beginPos >= 145316115 && t->beginPos < 193754820)
+						    {arrow_builders_append(230, t->beginPos, p->str.s);counts2_3++;}
+						    else {arrow_builders_append(240, t->beginPos, p->str.s);counts2_4++;}
+						}
+						else if (strcmp(t->refID, "chr3")==0)
+						{
+						    if (t->beginPos < 49573889 )  
+						    {arrow_builders_append(3, t->beginPos, p->str.s);counts3++;}
+						    else if (t->beginPos >= 49573889 && t->beginPos < 99147778) 
+						    {arrow_builders_append(31, t->beginPos, p->str.s);counts3_1++;}
+						    else if (t->beginPos >= 99147778 && t->beginPos < 148721667) 
+						    {arrow_builders_append(32, t->beginPos, p->str.s);counts3_2++;}
+						    else {arrow_builders_append(33, t->beginPos, p->str.s);counts3_3++;}
+						}
+						else if (strcmp(t->refID, "chr4")==0)
+						{
+						    if (t->beginPos < 49573889 )  
+						    {arrow_builders_append(4, t->beginPos, p->str.s);counts4++;}
+						    else if (t->beginPos >= 49573889 && t->beginPos < 99147778) 
+						    {arrow_builders_append(41, t->beginPos, p->str.s);counts4_1++;}
+						    else if (t->beginPos >= 99147779 && t->beginPos < 148721667) 
+						    {arrow_builders_append(42, t->beginPos, p->str.s);counts4_2++;}
+						    else {arrow_builders_append(43, t->beginPos, p->str.s);counts4_3++;}
+						}
+						else if (strcmp(t->refID, "chr5")==0)
+						{
+						    if (t->beginPos < 49573889 )  
+						    {arrow_builders_append(5, t->beginPos, p->str.s);counts5++;}
+						    else if (t->beginPos >= 49573889 && t->beginPos < 99147778) 
+						    {arrow_builders_append(51, t->beginPos, p->str.s);counts5_1++;}
+						    else if (t->beginPos >= 99147778 && t->beginPos < 148721667) 
+						    {arrow_builders_append(52, t->beginPos, p->str.s);counts5_2++;}
+						    else {arrow_builders_append(53, t->beginPos, p->str.s);counts5_3++;}
+						}
+						else if (strcmp(t->refID, "chr6")==0)
+						{
+						    if (t->beginPos < 42701494 )  
+						    {arrow_builders_append(6, t->beginPos, p->str.s);counts6++;}
+						    else if (t->beginPos >= 42701494 && t->beginPos < 85402988) 
+						    {arrow_builders_append(61, t->beginPos, p->str.s);counts6_1++;}
+						    else if (t->beginPos >= 85402988 && t->beginPos < 128104482) 
+						    {arrow_builders_append(62, t->beginPos, p->str.s);counts6_2++;}
+						    else {arrow_builders_append(63, t->beginPos, p->str.s);counts6_3++;}
+						}
+						else if (strcmp(t->refID, "chr7")==0)
+						{
+						    if (t->beginPos < 53115324 )  
+						    {arrow_builders_append(7, t->beginPos, p->str.s);counts7++;}
+						    else if (t->beginPos >= 53115324 && t->beginPos < 106230648) 
+						    {arrow_builders_append(71, t->beginPos, p->str.s);counts7_1++;}
+						    else {arrow_builders_append(72, t->beginPos, p->str.s);counts7_2++;}
+						}
+						else if (strcmp(t->refID, "chr8")==0)
+						{
+						    if (t->beginPos < 48379545 )  
+						    {arrow_builders_append(8, t->beginPos, p->str.s);counts8++;}
+						    else if (t->beginPos >= 48379545 && t->beginPos < 96759090) 
+						    {arrow_builders_append(81, t->beginPos, p->str.s);counts8_1++;}
+						    else {arrow_builders_append(82, t->beginPos, p->str.s);counts8_2++;}
+						}
+						else if (strcmp(t->refID, "chr9")==0)
+						{
+						    if (t->beginPos < 46131572 )  
+						    {arrow_builders_append(9, t->beginPos, p->str.s);counts9++;}
+						    else if (t->beginPos >= 46131572 && t->beginPos < 92263144) 
+						    {arrow_builders_append(91, t->beginPos, p->str.s);counts9_1++;}
+						    else {arrow_builders_append(92, t->beginPos, p->str.s);counts9_2++;}
+						}
+						else if (strcmp(t->refID, "chr10")==0)
+						{
+						    if (t->beginPos < 44599140 )  
+						    {arrow_builders_append(10, t->beginPos, p->str.s);counts10++;}
+						    else if (t->beginPos >= 44599140 && t->beginPos < 89198280) 
+						    {arrow_builders_append(101, t->beginPos, p->str.s);counts10_1++;}
+						    else {arrow_builders_append(102, t->beginPos, p->str.s);counts10_2++;}
+						}
+						else if (strcmp(t->refID, "chr11")==0)
+						{
+						    if (t->beginPos < 45028874 )  
+						    {arrow_builders_append(11, t->beginPos, p->str.s);counts11++;}
+						    else if (t->beginPos >= 45028874 && t->beginPos < 90057748) 
+						    {arrow_builders_append(111, t->beginPos, p->str.s);counts11_1++;}
+						    else {arrow_builders_append(112, t->beginPos, p->str.s);counts11_2++;}
+						}
+						else if (strcmp(t->refID, "chr12")==0)
+						{
+						    if (t->beginPos < 44425103 )  
+						    {arrow_builders_append(12, t->beginPos, p->str.s);counts12++;}
+						    else if (t->beginPos >= 44425103 && t->beginPos < 88850206) 
+						    {arrow_builders_append(121, t->beginPos, p->str.s);counts12_1++;}
+						    else {arrow_builders_append(122, t->beginPos, p->str.s);counts12_2++;}
+						}
+						else if (strcmp(t->refID, "chr13")==0)
+						{
+						    if (t->beginPos < 57182164 )  
+						    {arrow_builders_append(13, t->beginPos, p->str.s);counts13++;}
+						    else {arrow_builders_append(131, t->beginPos, p->str.s);counts13_1++;}
+						}
+						else if (strcmp(t->refID, "chr14")==0)
+						{
+						    if (t->beginPos < 53180292)  
+						    {arrow_builders_append(14, t->beginPos, p->str.s);counts14++;}
+						    else {arrow_builders_append(141, t->beginPos, p->str.s);counts14_1++;}
+						}
+						else if (strcmp(t->refID, "chr15")==0)
+						{
+						    if (t->beginPos < 50995594 )  
+						    {arrow_builders_append(15, t->beginPos, p->str.s);counts15++;}
+						    else {arrow_builders_append(151, t->beginPos, p->str.s);counts15_1++;}
+						}
+						else if (strcmp(t->refID, "chr16")==0)
+						{
+						    if (t->beginPos < 45169172 )  
+						    {arrow_builders_append(16, t->beginPos, p->str.s);counts16++;}
+						    else {arrow_builders_append(161, t->beginPos, p->str.s);counts16_1++;}
+						}
+						else if (strcmp(t->refID, "chr17")==0)
+						{
+						    if (t->beginPos < 41628720 )  
+						    {arrow_builders_append(17, t->beginPos, p->str.s);counts17++;}
+						    else {arrow_builders_append(171, t->beginPos, p->str.s);counts17_1++;}
+						}
+						else if (strcmp(t->refID, "chr18")==0)
+						{
+						    if (t->beginPos < 40186642 )  
+						    {arrow_builders_append(18, t->beginPos, p->str.s);counts18++;}
+						    else {arrow_builders_append(181, t->beginPos, p->str.s);counts18_1++;}
+						}
+						else if (strcmp(t->refID, "chr19")==0)
+						{
+						    arrow_builders_append(19, t->beginPos, p->str.s);counts19++;
+						 }
+						else if (strcmp(t->refID, "chr20")==0)
+						{
+						    arrow_builders_append(20, t->beginPos, p->str.s);counts20++;
+						 }
+						else if (strcmp(t->refID, "chr21")==0)
+						{
+						    arrow_builders_append(21, t->beginPos, p->str.s);counts21++;
+						 }
+						else if (strcmp(t->refID, "chr22")==0)
+						{
+						    arrow_builders_append(22, t->beginPos, p->str.s);counts22++;
+						 }
+						else if (strcmp(t->refID, "chrX")==0)
+						{
+						    if (t->beginPos < 52013631 )  
+						    {arrow_builders_append(23, t->beginPos, p->str.s);countsX++;}
+						    else if (t->beginPos >= 52013631 && t->beginPos < 104027262) 
+						    {arrow_builders_append(231, t->beginPos, p->str.s);countsX_1++;}
+						    else {arrow_builders_append(232, t->beginPos, p->str.s);countsX_2++;}
+						}
+						else if (strcmp(t->refID, "chrY")==0)
+						{
+						    arrow_builders_append(24, t->beginPos, p->str.s);countsY++;
+						 }
+						else if (strcmp(t->refID, "chrM")==0)
+						{
+						    arrow_builders_append(25, t->beginPos, p->str.s);countsM++;
+						 }
 					}
 				} else if ((p->opt->flag & MM_F_PAF_NO_HIT) || ((p->opt->flag & MM_F_OUT_SAM) && !(p->opt->flag & MM_F_SAM_HIT_ONLY))) { // output an empty hit, if requested
 					if (p->opt->flag & MM_F_OUT_SAM)
 						mm_write_sam3(&p->str, mi, t, i - seg_st, -1, s->n_seg[k], &s->n_reg[seg_st], (const mm_reg1_t*const*)&s->reg[seg_st], km, p->opt->flag, s->rep_len[i]);
 					else
 						mm_write_paf3(&p->str, mi, t, 0, 0, p->opt->flag, s->rep_len[i]);
-					mm_err_puts(p->str.s);
+					//mm_err_puts(p->str.s);
+					if (strcmp(t->refID, "chr1")==0) //t->beginPos
+						{
+						    if (t->beginPos < 49850124 )  
+						    {arrow_builders_append(1, t->beginPos, p->str.s);counts1++;}
+						    else if (t->beginPos >= 49850124 && t->beginPos < 99700248) 
+						    {arrow_builders_append(110, t->beginPos, p->str.s);counts1_1++;}
+						    else if (t->beginPos >= 99700248 && t->beginPos < 149550372) 
+						    {arrow_builders_append(120, t->beginPos, p->str.s);counts1_2++;}
+						    else if (t->beginPos >= 149550372 && t->beginPos < 199400496)
+						    {arrow_builders_append(130, t->beginPos, p->str.s);counts1_3++;}
+						    else {arrow_builders_append(140, t->beginPos, p->str.s);counts1_4++;}
+						}
+						else if (strcmp(t->refID, "chr2")==0)
+						{
+						    if (t->beginPos < 48438705 )  
+						    {arrow_builders_append(2, t->beginPos, p->str.s);counts2++;}
+						    else if (t->beginPos >= 48438705 && t->beginPos < 96877410) 
+						    {arrow_builders_append(210, t->beginPos, p->str.s);counts2_1++;}
+						    else if (t->beginPos >= 96877410 && t->beginPos < 145316115) 
+						    {arrow_builders_append(220, t->beginPos, p->str.s);counts2_2++;}
+						    else if (t->beginPos >= 145316115 && t->beginPos < 193754820)
+						    {arrow_builders_append(230, t->beginPos, p->str.s);counts2_3++;}
+						    else {arrow_builders_append(240, t->beginPos, p->str.s);counts2_4++;}
+						}
+						else if (strcmp(t->refID, "chr3")==0)
+						{
+						    if (t->beginPos < 49573889 )  
+						    {arrow_builders_append(3, t->beginPos, p->str.s);counts3++;}
+						    else if (t->beginPos >= 49573889 && t->beginPos < 99147778) 
+						    {arrow_builders_append(31, t->beginPos, p->str.s);counts3_1++;}
+						    else if (t->beginPos >= 99147778 && t->beginPos < 148721667) 
+						    {arrow_builders_append(32, t->beginPos, p->str.s);counts3_2++;}
+						    else {arrow_builders_append(33, t->beginPos, p->str.s);counts3_3++;}
+						}
+						else if (strcmp(t->refID, "chr4")==0)
+						{
+						    if (t->beginPos < 49573889 )  
+						    {arrow_builders_append(4, t->beginPos, p->str.s);counts4++;}
+						    else if (t->beginPos >= 49573889 && t->beginPos < 99147778) 
+						    {arrow_builders_append(41, t->beginPos, p->str.s);counts4_1++;}
+						    else if (t->beginPos >= 99147779 && t->beginPos < 148721667) 
+						    {arrow_builders_append(42, t->beginPos, p->str.s);counts4_2++;}
+						    else {arrow_builders_append(43, t->beginPos, p->str.s);counts4_3++;}
+						}
+						else if (strcmp(t->refID, "chr5")==0)
+						{
+						    if (t->beginPos < 49573889 )  
+						    {arrow_builders_append(5, t->beginPos, p->str.s);counts5++;}
+						    else if (t->beginPos >= 49573889 && t->beginPos < 99147778) 
+						    {arrow_builders_append(51, t->beginPos, p->str.s);counts5_1++;}
+						    else if (t->beginPos >= 99147778 && t->beginPos < 148721667) 
+						    {arrow_builders_append(52, t->beginPos, p->str.s);counts5_2++;}
+						    else {arrow_builders_append(53, t->beginPos, p->str.s);counts5_3++;}
+						}
+						else if (strcmp(t->refID, "chr6")==0)
+						{
+						    if (t->beginPos < 42701494 )  
+						    {arrow_builders_append(6, t->beginPos, p->str.s);counts6++;}
+						    else if (t->beginPos >= 42701494 && t->beginPos < 85402988) 
+						    {arrow_builders_append(61, t->beginPos, p->str.s);counts6_1++;}
+						    else if (t->beginPos >= 85402988 && t->beginPos < 128104482) 
+						    {arrow_builders_append(62, t->beginPos, p->str.s);counts6_2++;}
+						    else {arrow_builders_append(63, t->beginPos, p->str.s);counts6_3++;}
+						}
+						else if (strcmp(t->refID, "chr7")==0)
+						{
+						    if (t->beginPos < 53115324 )  
+						    {arrow_builders_append(7, t->beginPos, p->str.s);counts7++;}
+						    else if (t->beginPos >= 53115324 && t->beginPos < 106230648) 
+						    {arrow_builders_append(71, t->beginPos, p->str.s);counts7_1++;}
+						    else {arrow_builders_append(72, t->beginPos, p->str.s);counts7_2++;}
+						}
+						else if (strcmp(t->refID, "chr8")==0)
+						{
+						    if (t->beginPos < 48379545 )  
+						    {arrow_builders_append(8, t->beginPos, p->str.s);counts8++;}
+						    else if (t->beginPos >= 48379545 && t->beginPos < 96759090) 
+						    {arrow_builders_append(81, t->beginPos, p->str.s);counts8_1++;}
+						    else {arrow_builders_append(82, t->beginPos, p->str.s);counts8_2++;}
+						}
+						else if (strcmp(t->refID, "chr9")==0)
+						{
+						    if (t->beginPos < 46131572 )  
+						    {arrow_builders_append(9, t->beginPos, p->str.s);counts9++;}
+						    else if (t->beginPos >= 46131572 && t->beginPos < 92263144) 
+						    {arrow_builders_append(91, t->beginPos, p->str.s);counts9_1++;}
+						    else {arrow_builders_append(92, t->beginPos, p->str.s);counts9_2++;}
+						}
+						else if (strcmp(t->refID, "chr10")==0)
+						{
+						    if (t->beginPos < 44599140 )  
+						    {arrow_builders_append(10, t->beginPos, p->str.s);counts10++;}
+						    else if (t->beginPos >= 44599140 && t->beginPos < 89198280) 
+						    {arrow_builders_append(101, t->beginPos, p->str.s);counts10_1++;}
+						    else {arrow_builders_append(102, t->beginPos, p->str.s);counts10_2++;}
+						}
+						else if (strcmp(t->refID, "chr11")==0)
+						{
+						    if (t->beginPos < 45028874 )  
+						    {arrow_builders_append(11, t->beginPos, p->str.s);counts11++;}
+						    else if (t->beginPos >= 45028874 && t->beginPos < 90057748) 
+						    {arrow_builders_append(111, t->beginPos, p->str.s);counts11_1++;}
+						    else {arrow_builders_append(112, t->beginPos, p->str.s);counts11_2++;}
+						}
+						else if (strcmp(t->refID, "chr12")==0)
+						{
+						    if (t->beginPos < 44425103 )  
+						    {arrow_builders_append(12, t->beginPos, p->str.s);counts12++;}
+						    else if (t->beginPos >= 44425103 && t->beginPos < 88850206) 
+						    {arrow_builders_append(121, t->beginPos, p->str.s);counts12_1++;}
+						    else {arrow_builders_append(122, t->beginPos, p->str.s);counts12_2++;}
+						}
+						else if (strcmp(t->refID, "chr13")==0)
+						{
+						    if (t->beginPos < 57182164 )  
+						    {arrow_builders_append(13, t->beginPos, p->str.s);counts13++;}
+						    else {arrow_builders_append(131, t->beginPos, p->str.s);counts13_1++;}
+						}
+						else if (strcmp(t->refID, "chr14")==0)
+						{
+						    if (t->beginPos < 53180292)  
+						    {arrow_builders_append(14, t->beginPos, p->str.s);counts14++;}
+						    else {arrow_builders_append(141, t->beginPos, p->str.s);counts14_1++;}
+						}
+						else if (strcmp(t->refID, "chr15")==0)
+						{
+						    if (t->beginPos < 50995594 )  
+						    {arrow_builders_append(15, t->beginPos, p->str.s);counts15++;}
+						    else {arrow_builders_append(151, t->beginPos, p->str.s);counts15_1++;}
+						}
+						else if (strcmp(t->refID, "chr16")==0)
+						{
+						    if (t->beginPos < 45169172 )  
+						    {arrow_builders_append(16, t->beginPos, p->str.s);counts16++;}
+						    else {arrow_builders_append(161, t->beginPos, p->str.s);counts16_1++;}
+						}
+						else if (strcmp(t->refID, "chr17")==0)
+						{
+						    if (t->beginPos < 41628720 )  
+						    {arrow_builders_append(17, t->beginPos, p->str.s);counts17++;}
+						    else {arrow_builders_append(171, t->beginPos, p->str.s);counts17_1++;}
+						}
+						else if (strcmp(t->refID, "chr18")==0)
+						{
+						    if (t->beginPos < 40186642 )  
+						    {arrow_builders_append(18, t->beginPos, p->str.s);counts18++;}
+						    else {arrow_builders_append(181, t->beginPos, p->str.s);counts18_1++;}
+						}
+						else if (strcmp(t->refID, "chr19")==0)
+						{
+						    arrow_builders_append(19, t->beginPos, p->str.s);counts19++;
+						 }
+						else if (strcmp(t->refID, "chr20")==0)
+						{
+						    arrow_builders_append(20, t->beginPos, p->str.s);counts20++;
+						 }
+						else if (strcmp(t->refID, "chr21")==0)
+						{
+						    arrow_builders_append(21, t->beginPos, p->str.s);counts21++;
+						 }
+						else if (strcmp(t->refID, "chr22")==0)
+						{
+						    arrow_builders_append(22, t->beginPos, p->str.s);counts22++;
+						 }
+						else if (strcmp(t->refID, "chrX")==0)
+						{
+						    if (t->beginPos < 52013631 )  
+						    {arrow_builders_append(23, t->beginPos, p->str.s);countsX++;}
+						    else if (t->beginPos >= 52013631 && t->beginPos < 104027262) 
+						    {arrow_builders_append(231, t->beginPos, p->str.s);countsX_1++;}
+						    else {arrow_builders_append(232, t->beginPos, p->str.s);countsX_2++;}
+						}
+						else if (strcmp(t->refID, "chrY")==0)
+						{
+						    arrow_builders_append(24, t->beginPos, p->str.s);countsY++;
+						 }
+						else if (strcmp(t->refID, "chrM")==0)
+						{
+						    arrow_builders_append(25, t->beginPos, p->str.s);countsM++;
+						 }
 				}
 			}
 			for (i = seg_st; i < seg_en; ++i) {
