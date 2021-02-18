@@ -141,7 +141,7 @@ int mm_write_sam_hdr(const mm_idx_t *idx, const char *rg, char *ver, int argc, c
 static void write_cs_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq, const mm_reg1_t *r, char *tmp, int no_iden, int write_tag)
 {
 	int i, q_off, t_off;
-	if (write_tag) mm_sprintf_lite(s, "\tcs:Z:");
+	if (write_tag) mm_sprintf_lite(s, "\'cs:Z:");
 	for (i = q_off = t_off = 0; i < (int)r->p->n_cigar; ++i) {
 		int j, op = r->p->cigar[i]&0xf, len = r->p->cigar[i]>>4;
 		assert((op >= 0 && op <= 3) || op == 7 || op == 8);
@@ -189,7 +189,7 @@ static void write_cs_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq
 static void write_MD_core(kstring_t *s, const uint8_t *tseq, const uint8_t *qseq, const mm_reg1_t *r, char *tmp, int write_tag)
 {
 	int i, q_off, t_off, l_MD = 0;
-	if (write_tag) mm_sprintf_lite(s, "\tMD:Z:");
+	if (write_tag) mm_sprintf_lite(s, "\'MD:Z:");
 	for (i = q_off = t_off = 0; i < (int)r->p->n_cigar; ++i) {
 		int j, op = r->p->cigar[i]&0xf, len = r->p->cigar[i]>>4;
 		assert((op >= 0 && op <= 3) || op == 7 || op == 8);
@@ -283,26 +283,26 @@ static inline void write_tags(kstring_t *s, const mm_reg1_t *r)
 	if (r->id == r->parent) type = r->inv? 'I' : 'P';
 	else type = r->inv? 'i' : 'S';
 	if (r->p) {
-		mm_sprintf_lite(s, "\tNM:i:%d\tms:i:%d\tAS:i:%d\tnn:i:%d", r->blen - r->mlen + r->p->n_ambi, r->p->dp_max, r->p->dp_score, r->p->n_ambi);
+		mm_sprintf_lite(s, "\'NM:i:%d\'ms:i:%d\'AS:i:%d\'nn:i:%d", r->blen - r->mlen + r->p->n_ambi, r->p->dp_max, r->p->dp_score, r->p->n_ambi);
 		if (r->p->trans_strand == 1 || r->p->trans_strand == 2)
-			mm_sprintf_lite(s, "\tts:A:%c", "?+-?"[r->p->trans_strand]);
+			mm_sprintf_lite(s, "\'ts:A:%c", "?+-?"[r->p->trans_strand]);
 	}
-	mm_sprintf_lite(s, "\ttp:A:%c\tcm:i:%d\ts1:i:%d", type, r->cnt, r->score);
-	if (r->parent == r->id) mm_sprintf_lite(s, "\ts2:i:%d", r->subsc);
+	mm_sprintf_lite(s, "\'tp:A:%c\'cm:i:%d\'s1:i:%d", type, r->cnt, r->score);
+	if (r->parent == r->id) mm_sprintf_lite(s, "\'s2:i:%d", r->subsc);
 	if (r->p) {
 		char buf[16];
 		double div;
 		div = 1.0 - mm_event_identity(r);
 		if (div == 0.0) buf[0] = '0', buf[1] = 0;
 		else snprintf(buf, 16, "%.4f", 1.0 - mm_event_identity(r));
-		mm_sprintf_lite(s, "\tde:f:%s", buf);
+		mm_sprintf_lite(s, "\'de:f:%s", buf);
 	} else if (r->div >= 0.0f && r->div <= 1.0f) {
 		char buf[16];
 		if (r->div == 0.0f) buf[0] = '0', buf[1] = 0;
 		else snprintf(buf, 16, "%.4f", r->div);
-		mm_sprintf_lite(s, "\tdv:f:%s", buf);
+		mm_sprintf_lite(s, "\'dv:f:%s", buf);
 	}
-	if (r->split) mm_sprintf_lite(s, "\tzd:i:%d", r->split);
+	if (r->split) mm_sprintf_lite(s, "\'zd:i:%d", r->split);
 }
 
 void mm_write_paf3(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, const mm_reg1_t *r, void *km, int opt_flag, int rep_len)
@@ -517,7 +517,7 @@ void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, int seg_idx,
 			else mm_sprintf_lite(s, "*");
 		}
 	}
-        mm_sprintf_lite(s, "\t*");
+        mm_sprintf_lite(s, "\t");
 	// write tags
 	if (mm_rg_id[0]) mm_sprintf_lite(s, "\'RG:Z:%s", mm_rg_id);
 	if (n_seg > 2) mm_sprintf_lite(s, "\'FI:i:%d", seg_idx);
