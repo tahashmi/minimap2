@@ -320,17 +320,17 @@ void mm_write_paf3(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, const mm_reg
 	mm_sprintf_lite(s, "\t%d\t%d", r->mlen, r->blen);
 	mm_sprintf_lite(s, "\t%d", r->mapq);
 	write_tags(s, r);
-	if (rep_len >= 0) mm_sprintf_lite(s, "\trl:i:%d", rep_len);
+	if (rep_len >= 0) mm_sprintf_lite(s, "\'rl:i:%d", rep_len);
 	if (r->p && (opt_flag & MM_F_OUT_CG)) {
 		uint32_t k;
-		mm_sprintf_lite(s, "\tcg:Z:");
+		mm_sprintf_lite(s, "\'cg:Z:");
 		for (k = 0; k < r->p->n_cigar; ++k)
 			mm_sprintf_lite(s, "%d%c", r->p->cigar[k]>>4, "MIDNSHP=XB"[r->p->cigar[k]&0xf]);
 	}
 	if (r->p && (opt_flag & (MM_F_OUT_CS|MM_F_OUT_MD)))
 		write_cs_or_MD(km, s, mi, t, r, !(opt_flag&MM_F_OUT_CS_LONG), opt_flag&MM_F_OUT_MD, 1);
 	if ((opt_flag & MM_F_COPY_COMMENT) && t->comment)
-		mm_sprintf_lite(s, "\t%s", t->comment);
+		mm_sprintf_lite(s, "\'%s", t->comment);
 }
 
 void mm_write_paf(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, const mm_reg1_t *r, void *km, int opt_flag)
@@ -556,7 +556,7 @@ void mm_write_sam3(kstring_t *s, const mm_idx_t *mi, mm_bseq1_t *t, int seg_idx,
 	if (rep_len >= 0) mm_sprintf_lite(s, "\'rl:i:%d", rep_len);
 
 	if ((opt_flag & MM_F_COPY_COMMENT) && t->comment)
-		mm_sprintf_lite(s, "\t%s", t->comment);
+		mm_sprintf_lite(s, "\'%s", t->comment);
 
 	s->s[s->l] = 0; // we always have room for an extra byte (see str_enlarge)
 }
